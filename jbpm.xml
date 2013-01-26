@@ -1,0 +1,36 @@
+<jbpm:kbase id="kbase">
+    <jbpm:resources>
+      <jbpm:resource type="BPMN2" source="classpath:Hello.bpmn" />
+    </jbpm:resources>
+  </jbpm:kbase>
+ 
+<jbpm:ksession id="ksession" type="stateful" kbase="kbase">
+ 
+<jbpm:configuration>
+      <jbpm:jpa-persistence>
+        <jbpm:entity-manager-factory ref="entityManagerFactory"/>
+        <jbpm:transaction-manager ref="transactionManager"/>
+      </jbpm:jpa-persistence>
+     
+    </jbpm:configuration>
+</jbpm:ksession>
+<bean id="ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+<property name="url" value="jdbc:mysql://localhost:3306/jbpmworkflow?autoReconnect=true"/>
+<property name="username" value="root"/>
+<property name="password" value="root"/>
+</bean>
+ 
+<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+                  p:dataSource-ref="ds">
+<property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml" />
+<property name="persistenceUnitName" value="org.jbpm.persistence.jpa" />
+ 
+<property name="jpaVendorAdapter">
+<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+<property name="database" value="MYSQL"/>
+<property name="showSql" value="true"/>  
+<property name="databasePlatform" value="org.hibernate.dialect.MySQL5Dialect" />
+</bean>         
+</property>
+</bean>
