@@ -1,0 +1,9 @@
+Trecho de codigo na configuracao de jbpm
+ 
+
+  Configuracao do EntityManager:
+
+  <bean id="jbpmEMF"
+       class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+       <property name="persistenceUnitName" value="org.jbpm.persistence.jta" />
+  </bean>
